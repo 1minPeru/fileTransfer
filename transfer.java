@@ -1,4 +1,3 @@
-package fileTransfer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,20 +7,21 @@ import java.nio.file.StandardCopyOption;
 
 
 public class transfer {
-
+	
+	//scanner to read user inputs
 	static Scanner sc = new Scanner(System.in);
+	
+	//main method
 	public static void main(String[] args) throws IOException
     {
 
 		//get source folder
-
 		System.out.println("Source Folder:");
 		String source = sc.nextLine();
 		
 		//get Destination folder
 		System.out.println("Destination Folder:");
 		String destination = sc.nextLine();
-		
 		
 		//take source string and convert to file obj
 		File inp = new File(source);
@@ -32,8 +32,10 @@ public class transfer {
 		//takes all the .jar files in subdirectories (level 1) and transfers them
 		for(int i=0;i<subfolders.length;i++){
 			
+			//takes all files of specified type and makes array out of them
 			File[] transferFiles = getNewTextFiles2(subfolders[i]);
 			
+			//forloop to transfer the found files to new location
 				for(int j=0;j<transferFiles.length;j++){
 					move(transferFiles[j].toString(),destination);
 				}
@@ -64,7 +66,7 @@ public class transfer {
 	 */
 	private static File[] getNewTextFiles2(File source) {
 		
-		//returns all the .jar files in current subdirectory
+		//returns all the .jar files in current subdirectory, change ".jar" to whatever filetypes needed
 	    return source.listFiles(new FilenameFilter() {
 	        @Override
 	        public boolean accept(File dir, String name) {
@@ -82,20 +84,24 @@ public class transfer {
 	 */
 	public static void move(String src, String dest) throws IOException{
 		
-		//moves the file
+		//converts source directory to a File type
 		File src1 = new File(src);
+		//gets file name from the path
 		String fileName = src1.getName();
+		//destination will be destination directory + filename
 		dest = dest+"//"+fileName;
 		
+		//CopyOption created to overwrite exsisting file in destination folder if it exists
 		CopyOption[] options = new CopyOption[] {
 				StandardCopyOption.REPLACE_EXISTING};
 		
+		//Moves file from source to destination and replaces if it already is in destination
 		Path temp = Files.move(Paths.get(src), Paths.get(dest), options);
-	
+
 		//if file move is a success or not
 			 if(temp != null)
 			 {
-			    System.out.println("File renamed and moved successfully");
+			    System.out.println("File moved successfully");
 			 }
 			 else
 			 {
