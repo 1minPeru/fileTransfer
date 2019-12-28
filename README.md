@@ -8,8 +8,8 @@ Criteria:
 
 The .jar files that met this criteria were moved to the specified destination folder and duplicates were replaced
 
-#How to use:
+# How to use:
 Input Source and Destination directories
-Watch magic happen :)
+Target files in source directory and all of its children will be moved to destination directory
 
 This is obviously for a specific case, the code can easily be altered to take all subdirectories or certain types of files etc.
